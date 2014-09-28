@@ -7,11 +7,18 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rails_best_practices'
+
+  gem 'rvm-capistrano'
+  gem 'net-ssh', '2.7.0'
 end
 gem 'rails', '4.1.1'
 gem 'rails_12factor'
 # gem 'sqlite3'
-gem 'pg'
+# gem 'pg'
+
+# Database Adapter
+gem 'mysql2'
+
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
@@ -52,4 +59,4 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 gem "fog"
 gem 'nprogress-rails'
 gem 'metamagic'
-ruby "2.1.1"
+# ruby "2.1.1"

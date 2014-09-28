@@ -18,3 +18,4 @@
 /tmp
 log
 public/uploads
+.ruby-version
