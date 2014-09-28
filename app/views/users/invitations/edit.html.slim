@@ -1,0 +1,32 @@
+section.fill-content-login
+  .container
+    .row
+      .col-md-6.col-md-offset-3
+        .col-border-login
+          h1 Register
+          = form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f|
+            = devise_error_messages! 
+            = f.hidden_field :invitation_token
+            .form-group
+              = f.label :firstname, "First name"
+              = f.text_field :firstname, autofocus: true,:class => 'form-control input-login'
+            .form-group
+              = f.label :lastname, "Last name"
+              = f.text_field :lastname,:class => 'form-control input-login'
+            .form-group
+              = f.label :username
+              = f.text_field :username,:class => 'form-control input-login'
+            .form-group
+              = f.label :phone_number
+              = f.text_field :phone_number,:class => 'form-control input-login'
+            .form-group
+              = f.label :email
+              = f.email_field :email,:class => 'form-control input-login', :disabled => true
+            .form-group
+              = f.label :password
+              = f.password_field :password,:class => 'form-control input-login'
+            .form-group
+              = f.label :password_confirmation
+              = f.password_field :password_confirmation,:class => 'form-control input-login'
+            .form-group
+              = f.submit "Register", :class => 'btn btn-default btn-block btn-login'

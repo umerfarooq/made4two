@@ -1,0 +1,26 @@
+- if @line_items.empty?
+  h5 Cart is empty
+- else
+  .table-responsive
+    table.table.table-hover.table-striped
+      thead
+        tr
+          td #
+          td Tour name
+          td Qty
+          td Price
+      tbody
+        - @line_items.each_with_index do |line_item, index|
+          tr
+            td= index+1
+            td= line_item.tour.title
+            td= line_item.quantity
+            td= price(line_item.quantity, line_item.tour.price)
+        tr
+          td colspan="3"
+            strong Total price
+          td = number_to_currency(total_price(@line_items))
+  .col-md-6
+    = link_to "Checkout", new_order_path, :class => 'btn btn-success btn-block', 'data-no-turbolink'=> true
+  .col-md-6
+    = button_to "Empty",  cart_path(session[:cart_id]), :class => 'btn btn-danger btn-block', :data => {:confirm => 'Are you sure?'}, method: :delete

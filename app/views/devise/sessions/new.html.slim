@@ -1,0 +1,32 @@
+- meta title: "Login - Made 4 Two"
+section.fill-content-login
+  .container
+    .row
+      .col-md-6.col-md-offset-3
+        .col-border-login
+          h1 Login
+          = form_for(resource,html: {:class=> "login", :role => "form"}, as: resource_name, url: session_path(resource_name)) do |f|
+            - if alert || notice
+              .alert.alert-danger.alert-dismiss
+                button.close type="button" data-dismiss="alert" aria-hidden="true" &times
+                = alert
+                = notice
+            .form-group
+              = f.label :login, "Email or Username"
+              = f.text_field :login, autofocus: true, :class => 'form-control input-login'
+            .form-group
+              = f.label :password
+              = f.password_field :password, autocomplete: "off", :class => 'form-control input-login'
+            .form-group
+              = link_to "Sign up", new_user_registration_path
+              br/
+              = link_to "Forgot your password?", new_password_path(resource_name)
+              br/
+              br/
+              = f.submit "Login", :class => 'btn btn-default btn-block btn-login'
+
+              - if devise_mapping.omniauthable?
+                - resource_class.omniauth_providers.each do |provider|
+                  = link_to omniauth_authorize_path(resource_name, provider),:class => 'btn btn-default btn-block btn-fb'
+                    div.icons-set-nav.icon-fb-btn
+                    | Sign in with Facebook

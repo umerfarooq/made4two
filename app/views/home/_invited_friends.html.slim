@@ -1,0 +1,17 @@
+tr
+  td= invited.email
+  td
+    - if invited.confirmed_at.nil?
+      span.label.label-danger Pending
+    - else
+      span.label.label-success Success
+  td
+    - if invited.confirmed_at.nil?
+      = form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:remote => true, :method => :post} do |f|
+        - resource.class.invite_key_fields.each do |field|
+          = f.hidden_field field, :value => invited.email
+          = f.button :type => "submit", :class => 'btn btn-default'
+            span.glyphicon.glyphicon-repeat
+      /= button_to user_invitation_path(), :class => 'btn btn-default'
+        
+  

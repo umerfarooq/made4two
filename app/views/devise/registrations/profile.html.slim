@@ -1,0 +1,45 @@
+= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, remote: true, id: 'edit_profile' }) do |f|
+  = devise_error_messages!
+  / - if params[:action] == 'personal_user'
+  .form-group
+    = f.label :firstname
+    = f.text_field :firstname, :class => 'form-control input-checkout'
+  .form-group
+    = f.label :lastname
+    = f.text_field :lastname, :class => 'form-control input-checkout'
+  .form-group
+    = f.label :username
+    = f.text_field :username, :class => 'form-control input-checkout'
+  .form-group
+    = f.label :phone_number
+    = f.text_field :phone_number, :class => 'form-control input-checkout'
+  - if f.object.encrypted_password.present?
+    .form-group
+      = f.label :password
+      = f.password_field :password, :class => 'form-control input-checkout'
+    .form-group
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation, :class => 'form-control input-checkout'
+  .wrap-select
+    .form-group
+      .col-md-3
+        = f.label :age
+        = f.number_field :age, :class => 'form-control input-checkout'
+    .form-group
+      .col-md-2
+        .radio
+          label
+            = f.radio_button :gender, "Male", :value => 'Male', :checked => true
+            | Male
+    .form-group
+      .col-md-2
+        .radio
+          label
+            = f.radio_button :gender, "Female", :value => 'Female'
+            | Female
+  .clearfix
+  br
+    .form-group
+      = f.submit "Save Changes", :class => 'btn btn-default btn-save'
+      |  
+      = f.submit "Cancel", :class => 'btn btn-default btn-cancel', :type => 'reset'

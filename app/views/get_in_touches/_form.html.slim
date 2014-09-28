@@ -1,0 +1,11 @@
+= simple_form_for(@get_in_touch) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :email
+    = f.input :subject
+    = f.input :message
+
+  .form-actions
+    = f.button :submit

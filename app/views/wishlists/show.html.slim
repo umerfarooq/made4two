@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Tour:
+  = @wishlist.tour_id
+p
+  strong User:
+  = @wishlist.user_id
+
+= link_to 'Edit', edit_wishlist_path(@wishlist)
+'|
+= link_to 'Back', wishlists_path

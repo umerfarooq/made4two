@@ -1,0 +1,26 @@
+section.wrap-leave-message
+  h1.text-left
+    .icons-set-nav.icon-write
+    | I Would Like Too
+  .clearfix
+
+  = form_for @message, role: 'form', remote: true do |f|
+      
+    .col-md-6
+      ul.list-unstyled#errors
+      - if @message.errors.any?
+        .alert.alert-danger.alert-dismissable
+          button.close type="button" data-dismiss="alert" aria-hidden="true" &times;
+          ul.list-unstyled
+      .form-group
+        p Your name
+        = f.text_field :name, :class => 'form-control input-leave-message'
+      .form-group
+        p Subject
+        = f.text_field :subject, :class => 'form-control input-leave-message'
+    .col-md-6
+      .form-group
+        p
+          br/
+        = f.text_area :message, :class => 'form-control input-leave-message textarea-leave', :placeholder => 'Message', :rows => '10'
+      = f.submit "Post", :class => 'btn btn-default btn-send pull-right'

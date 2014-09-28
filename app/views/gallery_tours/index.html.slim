@@ -1,0 +1,29 @@
+h1 Listing gallery_tours
+
+table
+  thead
+    tr
+      th Title
+      th Image
+      th Content
+      th Status
+      th Tour
+      th
+      th
+      th
+
+  tbody
+    - @gallery_tours.each do |gallery_tour|
+      tr
+        td = gallery_tour.title
+        td = gallery_tour.image
+        td = gallery_tour.content
+        td = gallery_tour.status
+        td = gallery_tour.tour_id
+        td = link_to 'Show', gallery_tour
+        td = link_to 'Edit', edit_gallery_tour_path(gallery_tour)
+        td = link_to 'Destroy', gallery_tour, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Gallery tour', new_gallery_tour_path

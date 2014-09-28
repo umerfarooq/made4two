@@ -1,0 +1,5 @@
+<% unless resource.errors.empty? %>
+  $('#errors').hide().html("<div class='alert alert-danger alert-dismissable'><button class='close' type='button' data-dismiss='alert' aria-hidden='true'>&times;</button><%= resource.errors.full_messages[0] %></div>").fadeIn();
+<% else %>
+  location.reload();
+<% end %>

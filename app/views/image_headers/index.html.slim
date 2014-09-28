@@ -1,0 +1,25 @@
+h1 Listing image_headers
+
+table
+  thead
+    tr
+      th Description
+      th Image
+      th Status
+      th
+      th
+      th
+
+  tbody
+    - @image_headers.each do |image_header|
+      tr
+        td = image_header.description
+        td = image_header.image
+        td = image_header.status
+        td = link_to 'Show', image_header
+        td = link_to 'Edit', edit_image_header_path(image_header)
+        td = link_to 'Destroy', image_header, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Image header', new_image_header_path

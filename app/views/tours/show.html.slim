@@ -1,0 +1,144 @@
+- meta title: @tour.title+" - Made 4 Two"
+section.fill-content-packed
+  section.slider
+    .container
+      .row
+        .col-md-12
+          - if notice
+            .alert.alert-info.alert-dismiss
+              button.close type="button" class="close" data-dismiss="alert" aria-hidden="true" &times;
+              = notice
+        .col-md-7
+          .wrap-slider
+            #carousel-example-generic.carousel.slide.carousel-made42 data-ride="carousel" 
+              /! Indicators
+              ol.carousel-indicators.control-indicator-made42
+                - @gallery_tours.each_with_index do |gallery_tour, index|
+                  - if index == 0
+                    li.active data-slide-to="0" data-target="#carousel-example-generic" 
+                  - else
+                    li data-slide-to="1" data-target="#carousel-example-generic" 
+              .carousel-inner.carousel-made42-inner
+                - @gallery_tours.each_with_index do |gallery_tour,index|
+                  - if index == 0
+                    .item.active.item-active-made42
+                      = image_tag(gallery_tour.image)
+                      .caption-slider-made42.hidden-xs
+                        h4 = gallery_tour.title
+                        p = gallery_tour.content
+                  - else
+                    .item.item-active-made42
+                      = image_tag(gallery_tour.image)
+                      .caption-slider-made42.hidden-xs
+                        h4 = gallery_tour.title
+                        p = gallery_tour.content
+              /! Controls
+              a.left.carousel-control data-slide="prev" href="#carousel-example-generic" 
+                span.glyphicon.glyphicon-chevron-left style='font-size: 18px;'
+              a.right.carousel-control data-slide="next" href="#carousel-example-generic" 
+                span.glyphicon.glyphicon-chevron-right style='font-size: 18px;'
+          br/
+          .panel.panel-primary.panel-made42
+            .panel-heading.panel-heading-made42
+              h4.panel-title Description
+            .panel-body
+              .row
+                .col-lg-6
+                  h4 Why We Love This
+                  ul.we_love
+                    - @we_loves.each do |we_love|
+                      li= we_love.description
+                .col-lg-6
+                  h4 Experience Snapshot
+                  ul.experience-snapshot
+                    li
+                      i.fa.fa-star.fa-2x  
+                      b  About Merchant
+                      div
+                        = @tour.merchant
+                    li
+                      i.fa.fa-calendar.fa-2x  
+                      b  Availability
+                      div
+                        = @tour.availability
+                    li
+                      i.fa.fa-calendar.fa-2x  
+                      b  Blackout Date
+                      div
+                        = @tour.blackout_date
+                    li
+                      i.fa.fa-history.fa-2x  
+                      b  Duration
+                      div
+                        = @tour.duration
+                    li
+                      i.fa.fa-plane.fa-2x  
+                      b  Experience Location
+                      div
+                        = @tour.experience_location
+                    li
+                      i.fa.fa-plane.fa-2x  
+                      b  Nearest Airport
+                      div
+                        = @tour.nearest_airport
+          .panel.panel-primary.panel-made42
+            .panel-heading.panel-heading-made42
+              h4.panel-title What We Will Do
+            .panel-body
+              = @tour.description.html_safe
+          .panel.panel-primary.panel-made42
+            .panel-heading.panel-heading-made42
+              h4.panel-title What's Included
+            .panel-body
+              ul
+                - @includes.each do |i|
+                  li= i.description
+        .col-md-5
+          .panel.panel-primary.panel-made42
+            .panel-heading.panel-heading-made42
+              h5.panel-title 
+            .panel-body
+              .row
+                .col-md-6
+                  h6 Share
+                  = social_share_button_tag(@tour.title)
+                .col-md-6.acenter
+                  - if user_signed_in?
+                    h6 Add to your wishlist
+                    = button_to "Add", wishlists_path(tour_id: @tour.id), :class => 'btn btn-block btn-success'
+                  - else 
+                    h6 Login to add wishlist
+                    = link_to "Login", new_user_session_path, :class => 'btn btn-default btn-block'
+          
+          .panel.panel-primary.panel-made42
+            .panel-heading.panel-heading-made42
+              h4.panel-title Price
+            .panel-body
+              .row
+                .col-md-6
+                  h4 = number_to_currency(@tour.price, :unit => '£')
+                .col-md-6
+                  = button_to "Buy Now !", line_items_path(tour_id: @tour), :class => 'btn btn-success btn-block'
+            
+          .panel.panel-primary.panel-made42
+            .panel-heading.panel-heading-made42
+              h4.panel-title Your Chart
+            .panel-body
+              = render :partial => 'carts/cart'
+          .panel.panel-primary.panel-made42
+            .panel-heading.panel-heading-made42
+              h4.panel-title Maps
+            .panel-body
+              form
+                = text_field_tag :address, @tour.location, :style => 'display:none'
+                input#find type="button" style='display:none;'
+              .geo_maps
+javascript:
+  $(function(){
+    $("#address").geocomplete({
+      map: ".geo_maps"
+    });
+    $("#find").click(function(){
+      $("#address").trigger("geocode");
+    }).click();  
+  });

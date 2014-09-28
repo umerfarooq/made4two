@@ -1,0 +1,18 @@
+section.wrap-best
+  - tours.each do |tour|
+    - unless tour.nil?
+      .col-md-6
+        span.label.label-info.label-made42-small Sale
+        .image-wrap
+          .hover-wrap
+            span.overlay-img
+            span.overlay-text-thumb
+              = link_to tour_path(tour), :class => 'responsive-text'
+                .icons-set-nav.icon-view-detail
+          = image_tag(tour.image, :class => 'img-responsive')
+        .caption.caption-made42-small
+          .pull-left
+            h5 = tour.title
+            h5 = tour.supplier_company
+          .pull-right
+            h5 = number_to_currency(tour.price, :unit => '£')

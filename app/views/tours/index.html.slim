@@ -1,0 +1,36 @@
+- meta title: "Search '"+params[:search]+"' - Made 4 Two"
+section.fill-content-packed
+  .container
+    h1.text-center
+      | Search results for '
+      = params[:search]
+      | '
+    .divider-lg
+    .row
+      .col-md-12
+        section.wrap-search-packed
+          - if @tours.empty?
+              h1 Not found
+          - @tours.in_groups_of(2) do |tours|
+            .row
+            - tours.each do |tour|
+              - unless tour.nil?
+                .col-md-6
+                  span.label.label-info.label-made42-small Sale
+                  .image-wrap
+                    .hover-wrap
+                      span.overlay-img
+                      span.overlay-text-thumb
+                        = link_to tour_path(tour), :class => 'responsive-text'
+                          .icons-set-nav.icon-view-detail
+                    = image_tag(tour.image, :class => 'img-responsive')
+                  .caption.caption-made42-small
+                    .pull-left
+                      h5
+                        b= tour.title
+                      h5
+                        b= tour.supplier_company
+                    .pull-right
+                      h5
+                        b= number_to_currency(tour.price, :unit => '£')
+        = paginate @tours, :window => 2, :remote => false

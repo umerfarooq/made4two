@@ -1,0 +1,6 @@
+<% if @message.save %>
+  $('#errors').hide().html("<div class='alert alert-success alert-dismissable'><button class='close' type='button' data-dismiss='alert' aria-hidden='true'>&times;</button>Successfully !</div>").fadeIn();
+  $('.form-control').val('');
+<% else %>
+  $('#errors').hide().html("<div class='alert alert-danger alert-dismissable'><button class='close' type='button' data-dismiss='alert' aria-hidden='true'>&times;</button><%= @message.errors.full_messages[0] %></div>").fadeIn();
+<% end %>

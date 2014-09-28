@@ -1,0 +1,11 @@
+li
+  .media
+    .pull-left
+      .wrap-avatar
+        .icons-set-nav.icon-avtar
+    .media-body
+      article
+        h4.media-heading= message.name + " - "+ message.subject
+        i= date_message(message.created_at)
+        p
+          = strip_tags(message.message)

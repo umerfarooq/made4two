@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @gallery_tour.title
+p
+  strong Image:
+  = @gallery_tour.image
+p
+  strong Content:
+  = @gallery_tour.content
+p
+  strong Status:
+  = @gallery_tour.status
+p
+  strong Tour:
+  = @gallery_tour.tour_id
+
+= link_to 'Edit', edit_gallery_tour_path(@gallery_tour)
+'|
+= link_to 'Back', gallery_tours_path

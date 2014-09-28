@@ -1,0 +1,23 @@
+h1 Listing includes
+
+table
+  thead
+    tr
+      th Description
+      th Tour
+      th
+      th
+      th
+
+  tbody
+    - @includes.each do |include|
+      tr
+        td = include.description
+        td = include.tour_id
+        td = link_to 'Show', include
+        td = link_to 'Edit', edit_include_path(include)
+        td = link_to 'Destroy', include, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Include', new_include_path

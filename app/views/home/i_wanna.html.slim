@@ -1,0 +1,25 @@
+- meta title: "What I Wanna Do - Made 4 Two"
+section.fill-content-wanna
+  .container
+    - if notice
+      .alert.alert-success.alert-dismissable
+        button.close type="button" data-dismiss="alert" aria-hidden="true" &times;
+        = notice
+    h1.text-center
+      | Say Something 
+      strong Experiences
+    .divider-lg
+    .col-border
+      .row
+        .col-md-12.no-pad
+          .latest-message
+            h1
+              .icons-set-nav.icon-speech
+              | Latest Message
+            ul.list-message
+              #content_messages
+                == render @messages
+              / - @messages.each do |message|
+            = paginate @messages, :window => 2, :remote => true
+    .row 
+      == render "/messages/form", :@message => Message.new

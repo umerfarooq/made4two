@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title Made4Two Gift Notification
+  body
+    p 
+      | Dear 
+      b= @order.firstname + " " + @order.lastname
+      | ,
+    p
+      | You have gift from 
+      b= @order.user.firstname + " " + @order.user.lastname
+      | .
+    table border="1"
+      thead
+        tr
+          th width="15%" No
+          th Tour name
+          th Quantity
+      tbody
+        - @line_items.each_with_index do |line_item, index|
+          tr
+            td= index+1
+            td= line_item.tour.title
+            td= line_item.quantity

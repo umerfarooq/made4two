@@ -1,0 +1,27 @@
+= semantic_form_for [:admin,@tour], html: {:class => 'formtastic tour', :nonvalidate => 'nonvalidate'} do |f|
+  = f.inputs "Tour" do
+    = f.input :title
+    = f.input :location
+    = f.input :latitude, :as => :hidden
+    = f.input :longitude, :as => :hidden
+    //= f.input :longitude #location maps
+    li
+      = label_tag :Location_maps
+      .maps
+      a id="reset" href="#" style="display:none;" Reset Marker
+    = f.input :price
+    = f.input :supplier_company
+    = f.input :image, :as => :file
+    = f.input :stuff_id, :as => :select, :collection => Stuff.all
+    = f.input :type, :as => :select, :collection => ["local","getaway"]
+    = f.input :availability
+    = f.input :merchant
+    = f.input :blackout_date
+    = f.input :duration
+    = f.input :experience_location
+    = f.input :nearest_airport
+    //= f.semantic_fields_for :we_love do |wl|
+      //= wl.input :description,:name => 'we_love', :label => 'Why we love this'
+    = f.input :description
+  = f.actions do
+    = f.action :submit

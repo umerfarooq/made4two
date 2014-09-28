@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Code:
+  = @voucher.code
+p
+  strong User:
+  = @voucher.user_id
+p
+  strong Discount:
+  = @voucher.discount
+
+= link_to 'Edit', edit_voucher_path(@voucher)
+'|
+= link_to 'Back', vouchers_path

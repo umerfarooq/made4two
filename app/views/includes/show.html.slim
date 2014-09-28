@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Description:
+  = @include.description
+p
+  strong Tour:
+  = @include.tour_id
+
+= link_to 'Edit', edit_include_path(@include)
+'|
+= link_to 'Back', includes_path

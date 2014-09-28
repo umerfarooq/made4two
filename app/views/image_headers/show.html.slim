@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Description:
+  = @image_header.description
+p
+  strong Image:
+  = @image_header.image
+p
+  strong Status:
+  = @image_header.status
+
+= link_to 'Edit', edit_image_header_path(@image_header)
+'|
+= link_to 'Back', image_headers_path

@@ -1,0 +1,18 @@
+p Dear 
+  = @order.firstname + " " + @order.lastname
+  | ,
+p You have gift from 
+  = @order.user.firstname + " " + @order.user.lastname
+  | .
+table width="100%"
+  thead
+    tr
+      th No
+      th Tour name
+      th Quantity
+  tbody
+    = @line_items.each do | line_item|
+      tr
+        td
+        td= line_item.tour.title
+        td= line_item.quantity

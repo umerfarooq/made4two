@@ -1,0 +1,136 @@
+doctype html
+html
+  head
+    = metamagic
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag "https://js.stripe.com/v2/", 'application', 'data-turbolinks-track' => true
+    script src="http://maps.googleapis.com/maps/api/js?libraries=places" 
+    = csrf_meta_tags
+    = tag :meta, :name => 'stripe-key', :content => 'pk_test_CZdvDzP14oeiJT6O26YUa2Hk'
+  body
+  
+  header
+    .container
+      .row
+        .col-md-6
+          br/
+          = link_to root_path
+            = image_tag('logo.png')
+        .col-md-3
+          .pull-right
+              ul.media-social
+                li
+                  = link_to 'https://twitter.com/made4twotravel', :target => '_blank'
+                    .icons-set-nav.icon-twitter
+                li
+                  = link_to 'https://www.facebook.com/made4two', :target => '_blank'
+                    .icons-set-nav.icon-fb
+                //li
+                //  = link_to pinterest_share
+                //    .icons-set-nav.icon-pinterest
+        .col-md-3
+          .wrap-search
+            = form_tag tours_path, method: :get do
+              .input-group
+                span.input-group-btn
+                  = button_tag :class => 'btn btn-default btn-search'
+                    i.glyphicon.glyphicon-search
+                = text_field_tag :search, params[:search], :class => 'form-control input-search-made42'
+      .navbar.navbar-default.yamm.navbar-made42
+        .navbar-header
+          button.navbar-toggle data-target="#navbar-collapse-grid" data-toggle="collapse" type="button" 
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand.hidden-lg.hidden-md.hidden-sm href="#"  Menu
+        #navbar-collapse-grid.navbar-collapse.collapse.navbar-collapse-made42.no-pad
+          ul.nav.navbar-nav.nav-made42
+            li.dropdown.yamm-fw
+              = link_to stuffs_path("local"), :class => 'dropdown-toggle' do
+                / a.dropdown-toggle href="#" 
+                .icons-set-nav.icon-map
+                | Local Stuff
+
+              / ul.dropdown-menu.dropdown-made42
+              /   li.grid-demo
+              /     ul.col-sm-2.list-browse
+              /       li
+              /         p
+              /           strong Browse
+              /       = render :partial => 'stuffs/stuffs', :collection => Stuff.where(type: 'local'), as: :stuff
+                    
+            li.dropdown.yamm-fw
+              = link_to stuffs_path("getaway"), :class => 'dropdown-toggle' do
+                / a.dropdown-toggle href="#" 
+                .icons-set-nav.icon-airplan
+                | Getaway Stuff
+              / ul.dropdown-menu.dropdown-made42
+              /   li.grid-demo
+              /     ul.col-sm-2.list-browse
+              /       li
+              /         p
+              /           strong Browse
+              /       = render :partial => 'stuffs/stuffs', :collection => Stuff.where(type: 'getaway'), as: :stuff
+            li= link_to i_wanna_path
+              .icons-set-nav.icon-do
+              | What I Wanna Do
+          ul.nav.navbar-nav.navbar-right.nav-made42-right
+            - if user_signed_in?
+              li= link_to personal_user_path
+                .icons-set-nav.icon-profile
+                = current_user.firstname
+              li= link_to destroy_user_session_path, method: :delete
+                .icons-set-nav.icon-logout
+                | Logout
+            - else
+              li= link_to new_user_registration_path
+                .icons-set-nav.icon-register
+                | Register
+              li= link_to new_user_session_path
+                .icons-set-nav.icon-login
+                | Login
+  = yield
+footer
+  .wrap-footer
+    .container
+      .row
+        .col-md-3
+          ul.site-links
+            p Site Links
+            li= link_to 'Local Stuff', local_path
+            li= link_to 'Getaway Treats', getaway_path
+            li= link_to "What I Wanna Do ?", i_wanna_path
+            li= link_to "Terms Of Us", terms_path
+            li= link_to "Privacy Policy", privacy_path
+        .col-md-5
+          .list-footer
+            ul
+              = Page.find_by(permalink: 'about').content.html_safe
+              / p About Made For Two
+              / li
+              /   p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nisi purus, scelerisque ut imperin faucibus orci luctus et ultrices posuere cubilia Curae
+              br/
+              = link_to 'Read More', about_path, :class =>'a btn btn-default btn-readmore'
+        .col-md-4
+          .list-footer
+            ul
+              = Page.find_by(permalink: 'contact').content.html_safe
+              br/
+              li
+                = render :template => 'subscriptions/new'
+                /form
+                  /.input-group    
+                  /  p Subscribe to our mailing list
+                    
+
+                /    input.form-control.input-subscribe-made42 placeholder=("Email address") type="text" 
+                /    span.input-group-btn
+                /      button.btn.btn-default.btn-subscribe-made42 href="#" 
+                /        .icons-set-nav.icon-subscribe
+  .copyright
+    .container
+      .row
+        .col-md-12
+          .pull-left
+            p © Copyright 2014 by Made for two - All Rights Reserved
+          

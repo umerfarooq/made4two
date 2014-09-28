@@ -1,0 +1,22 @@
+<% if @voucher %>
+  $('#message').hide();
+  var discount = $('#discount').text();
+  if(discount == '0 %'){
+    $('#discount').html(' <%= @voucher.discount %> %');
+    var total_price = ($('#subtotal').text()).split('£');
+    price_replace = total_price[1].replace(',','');
+    
+    total = (price_replace - ((price_replace*<%= @voucher.discount %>)/100));
+    total = total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    $('#subtotal').text('£'+total);
+    $('#amount_total').val(total*100);
+    $('#order_discount').val('<%= @voucher.discount %>');
+  }
+  
+<% else %>
+  $('#discount').html('0 %');
+  $('#order_discount').val('0');
+  $('#message').hide().html("<div class='alert alert-danger'>Voucher code wrong.</div>").fadeIn();
+  $('#subtotal').html($('#subtotal1').html());
+<% end %>
+  

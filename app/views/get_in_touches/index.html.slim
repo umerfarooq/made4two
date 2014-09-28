@@ -1,0 +1,27 @@
+h1 Listing get_in_touches
+
+table
+  thead
+    tr
+      th Name
+      th Email
+      th Subject
+      th Message
+      th
+      th
+      th
+
+  tbody
+    - @get_in_touches.each do |get_in_touch|
+      tr
+        td = get_in_touch.name
+        td = get_in_touch.email
+        td = get_in_touch.subject
+        td = get_in_touch.message
+        td = link_to 'Show', get_in_touch
+        td = link_to 'Edit', edit_get_in_touch_path(get_in_touch)
+        td = link_to 'Destroy', get_in_touch, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Get in touch', new_get_in_touch_path

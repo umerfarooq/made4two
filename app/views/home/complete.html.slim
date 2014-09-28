@@ -1,0 +1,89 @@
+- meta title: "Order Complete - Made 4 Two"
+section.fill-content-checkout
+  .container
+    h1.text-center Order Complete
+    .divider-lg
+    .row
+      .col-md-8.col-md-offset-2
+        .panel.panel-primary.panel-made42
+          .panel-heading.panel-heading-made42
+            h3.panel-title Your complete order
+          .panel-body
+            .table-responsive
+              table#table-made42.table
+                thead
+                  tr
+                    td.item Destination
+                    td
+                    td.quantity QTY
+                    td.price Unit Price
+                    td.total-price Total Price
+                tbody
+                  - @line_items.each do |line_item|
+                    tr
+                      td.item
+                        .item-image
+                          = image_tag(line_item.tour.image, width: '100px')
+                      td.item-desc
+                        = link_to line_item.tour.title, tour_path(line_item.tour.id)
+                      td.quantity
+                        span= line_item.quantity
+                        .cooldown.hidden •
+                      td.price
+                        span = number_to_currency(line_item.tour.price, :unit => '£')
+                        /= content_tag("span",'',:id => "unit_price_#{line_item.id}")
+                          /= number_to_currency(line_item.tour.price)
+                      td.price
+                        = content_tag("span",number_to_currency(line_item.quantity*line_item.tour.price, :unit => '£'),:id => "total_price_#{line_item.id}",'data-price' => line_item.quantity*line_item.tour.price)
+                        /span= number_to_currency(line_item.quantity * line_item.tour.price)
+                tfoot
+                  tr
+                    td colspan="2" 
+                      ul.nav-table
+                        li Have question? Contact us : 
+                        li
+                          a href='' data-toggle="tooltip" data-placement="bottom" title="+123-456-789" Phone
+                          |  | 
+                        li
+                          a href='' data-toggle="tooltip" data-placement="bottom" title="contact@made4two.com" Email
+                    td
+                    td Subtotal
+                    /td= number_to_currency(total_price(@line_items))
+                    td
+                      = content_tag("span",number_to_currency(total_price(@line_items), :unit => '£'), :class => 'subtotal_price')
+                    td
+            - if @order.gift == true
+              section.order-summary
+                h3 Order Summary
+                .pull-left
+                  p
+                    strong Subtotal Price : 
+                    = number_to_currency(total_price(@line_items), :unit => '£')
+                  p
+                    strong Discount : 
+                    = @order.discount.to_s + "%"
+                  p
+                    strong Total Price : 
+                    = number_to_currency((@order.amount)/100, :unit => '£')
+              section.order-summary
+                h3 Gift For
+                .pull-left
+                  strong Name :
+                  p= @order.firstname + " " + @order.lastname
+                  strong Message :
+                  p= @order.message
+                  strong Email :
+                  p= @order.email
+            - else
+              section.order-summary
+                h3 Order Summary
+                .pull-left
+                  p
+                    strong Subtotal Price : 
+                    = number_to_currency(total_price(@line_items), :unit => '£')
+                  p
+                    strong Discount : 
+                    = @order.discount.to_s + "%"
+                  p
+                    strong Total Price : 
+                    = number_to_currency((@order.amount)/100, :unit => '£')

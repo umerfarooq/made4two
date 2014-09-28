@@ -1,0 +1,5 @@
+<% if @user.save %>
+  $('#errors').hide().html("<div class='alert alert-info alert-dismissable'><button class='close' type='button' data-dismiss='alert' aria-hidden='true'>&times;</button>Successfully updated.</div>").fadeIn();
+<% else %>
+  $('#errors').hide().html("<div class='alert alert-danger alert-dismissable'><button class='close' type='button' data-dismiss='alert' aria-hidden='true'>&times;</button><%= @user.errors.full_messages[0] %> </div>").fadeIn();
+<% end %>

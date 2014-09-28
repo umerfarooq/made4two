@@ -1,0 +1,6 @@
+tr
+  td= wishlist.tour.title
+  td.item
+    .item-image= image_tag(wishlist.tour.image, :width => '100px')
+  td= link_to 'View', tour_path(wishlist.tour.slug)
+  td= link_to 'Delete', wishlist_path(wishlist), method: :delete, data: {:confirm => 'Are you sure?'}

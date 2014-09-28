@@ -1,0 +1,7 @@
+= form_for Subscription.new do |f|
+  .input-group    
+    p Subscribe to our mailing list
+    = f.email_field :email, :class => 'form-control input-subscribe-made42', :placeholder => 'Email address'
+    span.input-group-btn
+      = f.button '', :class => 'btn btn-default btn-subscribe-made42'
+        .icons-set-nav.icon-subscribe

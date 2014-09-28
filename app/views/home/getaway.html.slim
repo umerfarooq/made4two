@@ -1,0 +1,59 @@
+- meta title: "Getaway Stuff - Made 4 Two"
+section.fill-content-packed
+  .container
+    .row 
+      .col-md-12
+        .wrap-banner-packed
+          = image_tag('sl-2.jpg', width: '100%', alt: '')
+          .nav-tabs-btn
+            ul#myTab.nav.nav-tabs.nav-tabs-made42
+              li.active
+                a data-toggle="tab" href="#lower_price"  Lower Price
+              li
+                a data-toggle="tab" href="#high_price"  High Price
+        section.tabs-packed
+          #myTabContent.tab-content
+            #high_price.tab-pane.fade.in
+              - @high_price.in_groups_of(2) do |tours|
+                section.wrap-best
+                  - tours.each do |tour|
+                    - unless tour.nil?
+                      .col-md-6
+                        span.label.label-info.label-made42-small Sale
+                        .image-wrap
+                          .hover-wrap
+                            span.overlay-img
+                            span.overlay-text-thumb
+                              = link_to tour_path(tour), :class => 'responsive-text'
+                                .icons-set-nav.icon-view-detail
+                          = image_tag(tour.image, :class => 'img-responsive')
+                        .caption.caption-made42-small
+                          .pull-left
+                            h5
+                              b= tour.title
+                            h5 = tour.supplier_company
+                          .pull-right
+                            h5 = number_to_currency(tour.price, :unit => '£')
+            #lower_price.tab-pane.fade.in.active
+              - @lower_price.in_groups_of(2) do |tours|
+                section.wrap-best
+                  - tours.each do |tour|
+                    - unless tour.nil?
+                      .col-md-6
+                        span.label.label-info.label-made42-small Sale
+                        .image-wrap
+                          .hover-wrap
+                            span.overlay-img
+                            span.overlay-text-thumb
+                              = link_to tour_path(tour), :class => 'responsive-text'
+                                .icons-set-nav.icon-view-detail
+                          = image_tag(tour.image, :class => 'img-responsive')
+                        .caption.caption-made42-small
+                          .pull-left
+                            h5
+                              b= tour.title
+                            h5
+                              b= tour.supplier_company
+                          .pull-right
+                            h5
+                              b= number_to_currency(tour.price, :unit => '£')

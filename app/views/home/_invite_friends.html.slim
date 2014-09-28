@@ -1,0 +1,15 @@
+= render :template => 'users/invitations/new'
+br/
+.table-responsive
+    table.table.table-hover.table-striped
+      thead
+        tr
+          th Email
+          th Status
+          th Actions
+      tbody
+        - unless @invites.empty?
+          = render :partial => 'invited_friends', :collection => @invites, as: :invited
+        - else
+          tr
+            td align="center" colspan="3" Empty

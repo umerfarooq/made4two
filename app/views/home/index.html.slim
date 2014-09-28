@@ -1,0 +1,129 @@
+- meta title: "Home - Made 4 Two"
+section.fill-content
+  section.slider
+    .container
+      .row
+        .col-md-12
+          - if notice
+            .alert.alert-dismiss.alert-info
+              button.close data-dismiss="alert" aria-hidden="true" &times
+              = notice
+          .wrap-slider-home
+            #carousel-example-generic.carousel.slide.carousel-made42-home data-ride="carousel" 
+              /! Indicators
+              ol.carousel-indicators.control-indicator-made42
+                - @image_headers.each_with_index do |image_header,index|
+                  - if index == 0
+                    = content_tag("li",'',:class => "active", 'data-slide-to' => index, 'data-target' => '#carousel-example-generic')
+                  - else
+                    = content_tag("li",'', 'data-slide-to' => index, 'data-target' => '#carousel-example-generic')
+                
+              .carousel-inner.carousel-made42-inner-home
+                - @image_headers.each_with_index do |image_header,index|
+                  - if index == 0
+                    .item.active.item-active-made42-home
+                      = image_tag(image_header.image)
+                      .caption-slider-made42-home.hidden-xs
+                        h2= image_header.title
+                        p= image_header.description
+                        //a.btn.btn-default.btn-learnmore href="#"  Learn More
+                  - else
+                    .item.item-active-made42-home
+                      = image_tag(image_header.image, :style => 'width:100%')
+                      .caption-slider-made42-home.hidden-xs
+                        h2= image_header.title
+                        p= image_header.description
+                        //a.btn.btn-default.btn-learnmore href="#"  Learn More
+                
+              /! Controls
+              a.left.carousel-control.control-hidden data-slide="prev" href="#carousel-example-generic" 
+                span.glyphicon.glyphicon-chevron-left
+              a.right.carousel-control.control-hidden data-slide="next" href="#carousel-example-generic" 
+                span.glyphicon.glyphicon-chevron-right
+
+  section.fill-content
+    .container
+      .row
+        .col-md-12
+          .row
+            section.product-made42
+              .divider-tittle
+                h1.text-center Local Stuff
+              - unless @new_local.blank?
+                .col-md-8
+                  span.label.label-info.label-made42-large New
+                  .image-wrap
+                    .hover-wrap
+                      span.overlay-img
+                      span.overlay-text-thumb
+                        = link_to tour_path(@new_local), :class => 'text-center'
+                          .icons-set-nav.icon-view-detail
+                    = image_tag(@new_local.image, :class => 'img-responsive')
+                  .caption.caption-made42-large
+                    .pull-left
+                      h3
+                        b= @new_local.title
+                      h3
+                        b= number_to_currency(@new_local.price, :unit => '£')
+                    .pull-right
+                      h5
+                        .icons-set-nav.icon-local
+                        i= @new_local.location
+              - @sale_locals.each do |sale_local|
+                  .col-md-4
+                    span.label.label-info.label-made42-small Sale
+                    .image-wrap
+                      .hover-wrap
+                        span.overlay-img
+                        span.overlay-text-thumb
+                          = link_to tour_path(sale_local), :class => 'responsive-text'
+                            .icons-set-nav.icon-view-detail
+                      = image_tag(sale_local.image, :class => 'img-responsive') 
+                    .caption.caption-made42-small
+                      .pull-left
+                        h5
+                          b= sale_local.title
+                      .pull-right
+                        h5
+                          b= number_to_currency(sale_local.price, :unit => '£')
+              .clearfix
+              .divider-tittle
+                h1.text-center Getaway Stuff
+              - unless @new_getaway.nil?
+                .col-md-8
+                  span.label.label-info.label-made42-large New
+                  .image-wrap
+                    .hover-wrap
+                      span.overlay-img
+                      span.overlay-text-thumb
+                        = link_to tour_path(@new_getaway), :class => 'responsive-text'
+                          .icons-set-nav.icon-view-detail
+                    = image_tag(@new_getaway.image, :class => 'img-responsive')
+                  .caption.caption-made42-large
+                    .pull-left
+                      h3
+                        b= @new_getaway.title
+                      h3
+                        b= number_to_currency(@new_getaway.price, :unit => '£')
+                    .pull-right
+                      h5
+                        .icons-set-nav.icon-local
+                        i= @new_getaway.location
+              
+              - @sale_getaways.each do |sale_getaway|
+                .col-md-4
+                  span.label.label-info.label-made42-small Sale
+                  .image-wrap
+                    .hover-wrap
+                      span.overlay-img
+                      span.overlay-text-thumb
+                        = link_to tour_path(sale_getaway), :class => 'responsive-text'
+                          .icons-set-nav.icon-view-detail
+                    = image_tag(sale_getaway.image, :class => 'img-responsive')
+                  .caption.caption-made42-small
+                    .pull-left
+                      h5
+                        b= sale_getaway.title
+                    .pull-right
+                      h5
+                        b= number_to_currency(sale_getaway.price, :unit => '£')

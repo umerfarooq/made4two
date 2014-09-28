@@ -1,0 +1,10 @@
+= simple_form_for(@voucher) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :code
+    = f.input :user_id
+    = f.input :discount
+
+  .form-actions
+    = f.button :submit

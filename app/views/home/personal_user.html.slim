@@ -1,0 +1,28 @@
+- meta title: "Personal User - Made 4 Two"
+section.fill-content-personal-address
+  .container
+    .row
+      .col-md-6
+        h3 My Account
+        h5 Welcome to your account. Here you can manage all of your personal information and orders.
+        ul.list-account
+          li= link_to "#profile", 'data-toogle' => 'tab', remote: true
+            .icons-set-nav.icon-personal-inf
+            | My Personal Information
+          li= link_to "#address",'data-toogle' => 'tab', remote: true
+            .icons-set-nav.icon-address-inf
+            | My Address
+          li= link_to "#invite",'data-toogle' => 'tab', remote: true
+            .icons-set-nav.icon-invite-inf
+            | Invite Friends
+          li= link_to "#points",'data-toogle' => 'tab', remote: true
+            .icons-set-nav.icon-points-inf
+            | Reward Points
+          li= link_to "#wishlist", 'data-toogle' => 'tab', remote: true
+            .icons-set-nav.icon-wishlist-inf
+            | My Wishlist
+          li= link_to destroy_user_session_path, method: :delete
+            .icons-set-nav.icon-signout-inf
+            | Sign Out
+      .col-md-6
+        = render :template => 'home/tab'

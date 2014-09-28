@@ -1,0 +1,164 @@
+- meta title: "Checkout Order - Made 4 Two"
+section.fill-content-checkout
+  .container
+    h1.text-center Checkout Order
+    .divider-lg
+    .row
+      .col-md-6
+        .panel.panel-primary.panel-made42
+          .panel-heading.panel-heading-made42
+            h3.panel-title Review Your Order
+        
+          .panel-body
+            .table-responsive
+              table#table-made42.table
+                thead
+                  tr
+                    td.item Destination
+                    td
+                    td.quantity QTY
+                    td.price Unit Price
+                    td.total-price Total Price
+                    td
+                tbody
+                  - @line_items.each do |line_item|
+                    tr
+                      td.item
+                        .item-image
+                          = image_tag(line_item.tour.image, width: '100px')
+                      td.item-desc
+                        = link_to line_item.tour.title, tour_path(line_item.tour.id)
+                      td.quantity
+                        = form_for LineItem.find(line_item), method: :put, remote: true do |f|
+                          = tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
+                          = f.number_field :quantity, :class => 'form-control input-qty', :min => '1', :onchange => "increment(this, #{line_item.id}, #{line_item.tour.price})"
+                          = f.submit "", :style =>'display:none', :id => "submit_btn_#{line_item.id}"
+                      td.price
+                        span.currency = number_to_currency(line_item.tour.price, :unit => '£')
+                        /= content_tag("span",'',:id => "unit_price_#{line_item.id}")
+                          /= number_to_currency(line_item.tour.price)
+                      td.price
+                        = content_tag("span",number_to_currency(line_item.quantity*line_item.tour.price, :unit => '£'),:id => "total_price_#{line_item.id}",'data-price' => line_item.quantity*line_item.tour.price)
+                        /span= number_to_currency(line_item.quantity * line_item.tour.price)
+                      td.remove
+                        .remove-item
+                          = link_to '×', line_item_path(line_item), :method => :delete, 'data-confirm' => 'Are you sure want to remove?'
+                tfoot
+                  tr
+                    td colspan="2" 
+                      ul.nav-table
+                        li Have question? Contact us : 
+                        li
+                          a href='' data-toggle="tooltip" data-placement="bottom" title="+123-456-789" Phone
+                          |  | 
+                        li
+                          a href='' data-toggle="tooltip" data-placement="bottom" title="contact@made4two.com" Email
+                    td
+                    td Subtotal
+                    /td= number_to_currency(total_price(@line_items))
+                    td
+                      = content_tag("span",number_to_currency(total_price(@line_items), :unit => '£'), :class => 'subtotal_price')
+                    td
+            section.wrap-voucher
+              = form_tag vouchers_path, :class => 'form-horizontal', :remote => true, :method => 'get' do
+                .form-group
+                  = label_tag :code, 'Voucher Code', :class => 'control-label control-label-made42 col-sm-3'
+                  .col-sm-5
+                    .input-group
+                      = text_field_tag :code, '', :class => 'form-control input-voucher', 'autocomplete' => true
+                      span.input-group-btn
+                        = button_tag 'Check', :class => 'btn btn-default btn-voucher'
+              #message
+            section.order-summary
+              h3 Order Summary
+              .pull-left
+                ul.list-order-summary
+                  li
+                    | Sub-total :
+                    span.subtotal_price#subtotal1 = number_to_currency(total_price(@line_items), :unit => '£')
+                  li
+                    | Disc : 
+                    span#discount 0 %
+                  li
+                    | Total :
+                    span.subtotal_price#subtotal = number_to_currency(total_price(@line_items), :unit => '£')
+              .pull-right
+                = link_to "Continue Shopping", root_url, :class => 'btn btn-default btn-order'
+        .panel.panel-primary.panel-made42
+          .panel-heading.panel-heading-made42
+            h3.panel-title Payment
+          .panel-body
+            = form_for @order,html: { :class => 'form-made42', :role => 'form', :id => 'order_new_form'} do |f|
+              = f.hidden_field :stripe_card_token
+              = f.hidden_field :amount, :value => total_price(@line_items)*100, :id => 'amount_total'
+              = f.hidden_field :cart_id, :value => session[:cart_id]
+              = f.hidden_field :user_id, :value => current_user.id
+              = f.hidden_field :gift, :value => false
+              = f.hidden_field :firstname, :value => ''
+              = f.hidden_field :lastname, :value => ''
+              = f.hidden_field :message, :value => ''
+              = f.hidden_field :certicate, :value => false
+              = f.hidden_field :email, :value => ''
+              = f.hidden_field :discount, :value => '0'
+              #stripe_error
+                noscript JavaScript is not enabled and is required for this form. First enable it in your web browser settings.
+              .form-group
+                = label_tag :card_number, "Card number", :class => 'made42'
+                = text_field_tag :card_number, nil, :class => 'form-control input-checkout', 'data-stripe' => 'number'
+              .row
+                .form-group
+                  .col-md-6
+                    label.made42 Exp month
+                    .styled-select
+                      = select_month nil, {add_month_numbers: true}, {:name => nil, :id => "card_month", :class => 'form-control input-checkout', 'data-stripe' => 'exp-month'}
+                  .col-md-3
+                    label.made42 Exp years
+                    .styled-select
+                      = select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {:name => nil, :id => "card_year", :class => 'form-control input-checkout', 'data-stripe' => 'exp-year'}
+                  .col-md-3
+                    = label_tag :cvc, "CVV Code", :class => 'made42'
+                    = text_field_tag :cvc,nil, :class => 'form-control input-checkout', 'data-stripe' => 'cvc', 'autocomplete' => 'off'
+              .clearfix
+              br/
+              .form-group
+                
+                = f.submit 'Complete Order', :class => 'btn btn-order'
+        
+      .col-md-6
+        .panel.panel-primary.panel-made42
+          .panel-heading.panel-heading-made42
+            h3.panel-title Gifting
+          .panel-body
+            form role="form" 
+              .checkbox
+                label
+                  input#gift_check type="checkbox" value=""
+                    | Buy this order as a gift
+            br
+              p style=("color: #666 !important;") 
+                | Gift time! Feels good, doesn’t it?
+                br
+                  br
+                    | Experiance gift certificates are delivered via email.
+                    | We can send the certificates directly to you gift
+                    | recipient or we can send a printable certificate to you.
+              form.form-made42 role="form" 
+                .form-group
+                  label.made42 Recipient first name
+                  input#gift_firstname.form-control.input-checkout required="" type="text" onkeyup=""
+                .form-group
+                  label.made42 Recipient last name
+                  input#gift_lastname.form-control.input-checkout required="" type="text" 
+                .form-group
+                  label.made42 Personal Message
+                  textarea.form-control.input-get-intouch#gift_message rows="13" 
+                .radio.radio-cs
+                  label
+                    input.gift_certicate checked="" name="optionsRadios" type="radio" value="false" 
+                      | Email a Printable gift certicate to me
+                  label
+                    input.gift_certicate name="optionsRadios" type="radio" value="true" 
+                      | Email the gift certicate directly to my recipnent
+                .form-group
+                  label.made42 Recipient email
+                  input#gift_email.form-control.input-checkout required="" type="text" 

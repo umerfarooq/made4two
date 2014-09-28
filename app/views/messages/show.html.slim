@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @message.name
+p
+  strong Subject:
+  = @message.subject
+p
+  strong Address1:
+  = @message.address1
+p
+  strong Address2:
+  = @message.address2
+p
+  strong Message:
+  = @message.message
+p
+  strong Status:
+  = @message.status
+
+= link_to 'Edit', edit_message_path(@message)
+'|
+= link_to 'Back', messages_path

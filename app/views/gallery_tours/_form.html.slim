@@ -1,0 +1,24 @@
+= form_for @gallery_tour do |f|
+  - if @gallery_tour.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@gallery_tour.errors.count, "error")} prohibited this gallery_tour from being saved:"
+      ul
+        - @gallery_tour.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :image
+    = f.text_field :image
+  .field
+    = f.label :content
+    = f.text_area :content
+  .field
+    = f.label :status
+    = f.number_field :status
+  .field
+    = f.label :tour_id
+    = f.text_field :tour_id
+  .actions = f.submit 'Save'

@@ -1,0 +1,5 @@
+tr
+  td= index+1
+  td= line_item.tour.title
+  td= line_item.quantity
+  td= price(line_item.quantity, line_item.tour.price)

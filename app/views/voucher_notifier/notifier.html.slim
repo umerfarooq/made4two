@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title Made4Two Voucher Notification
+  body
+    p 
+      | Dear 
+      b= @voucher.user.firstname + " " + @voucher.user.lastname
+    p
+    	| You have to get a 
+    	b
+    		= @voucher.discount
+    		| % 
+    	|  discount voucher to spend in made4two. Input code 
+    	b= @voucher.code
+    	|  when you checkout.

@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Description:
+  = @we_love.description
+p
+  strong Tour:
+  = @we_love.tour_id
+
+= link_to 'Edit', edit_we_love_path(@we_love)
+'|
+= link_to 'Back', we_loves_path

@@ -1,0 +1,50 @@
+- if notice
+  .alert.alert-info.info-dismissable
+    button.close type="button" data-dismiss="alert" aria-hidden="true" &times;
+    = notice
+#errors
+.tab-content
+  = render :template => 'devise/registrations/edit', :locals => {:resource => current_user,:resource_name => :user}
+  .tab-pane.fade.in#points
+    h3.heading-personal Reward Points
+    table.table.table-hover.table-striped
+      thead
+        tr
+          th Event
+          th Qty
+          th Points
+      tbody
+        tr
+          td Welcome points
+          td 1
+          td 100
+        - unless @count_user == 0
+          tr
+            td Invite points
+            td= @count_user
+            td 50
+        /= render :partial => 'points', :collection => User.where.not(confirmed_at: nil).where(invited_by_id: current_user.id), as: :point
+      tfoot
+        tr
+          td colspan="2"
+            strong Total points
+          td
+            strong= (User.where.not(confirmed_at: nil).where(invited_by_id: current_user.id).count(:all) * 50)+100
+  .tab-pane.fade.in#wishlist
+    h3.heading-personal Your Wishlist
+    table.table.table-hover.table-striped
+      thead
+        tr
+          th Name tour
+          th
+          th
+      tbody
+        - if Wishlist.where(user_id: current_user.id).empty?
+          tr
+            td colspan="3" align="center" Empty
+        - else
+          = render :partial => 'wishlists/wishlist', :collection => Wishlist.where(user_id: current_user.id), as: :wishlist
+  .tab-pane.fade.in#invite
+    h3.heading-personal Invite Friends
+    = render :partial => 'invite_friends'
+  

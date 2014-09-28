@@ -1,0 +1,23 @@
+h1 Listing we_loves
+
+table
+  thead
+    tr
+      th Description
+      th Tour
+      th
+      th
+      th
+
+  tbody
+    - @we_loves.each do |we_love|
+      tr
+        td = we_love.description
+        td = we_love.tour_id
+        td = link_to 'Show', we_love
+        td = link_to 'Edit', edit_we_love_path(we_love)
+        td = link_to 'Destroy', we_love, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New We lofe', new_we_love_path

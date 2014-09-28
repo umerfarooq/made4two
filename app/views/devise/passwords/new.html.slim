@@ -1,0 +1,16 @@
+section.fill-content-login
+  .container
+    .row
+      .col-md-6.col-md-offset-3
+        .col-border-login
+          h1 Forgot password
+          = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+            = devise_error_messages!
+            .form-group
+              = f.label :email
+              = f.email_field :email, autofocus: true, :class => 'form-control input-login'
+            .form-group
+              = render "devise/shared/links"
+              br/
+              = f.submit "Send me reset password", :class => 'btn btn-default btn-block btn-login'
+          

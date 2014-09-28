@@ -1,0 +1,61 @@
+- meta title: "About Us - Made 4 Two"
+.fill-content-about
+  .container
+    h1.text-center
+      | Find The Greatest 
+      strong Experiences
+      |  For Two
+    .divider-lg
+    .row.wrap-banner
+      .col-md-4.no-pad
+        h2
+          | We care
+          br
+          | about your
+          br
+          | happiness
+      .col-md-8.no-pad
+        = image_tag(@about.image, width: '100%')
+        / img alt="" src="assets/b-about_us.png" width="100%"
+      div
+    section.desc-aboutus
+      .row
+        .col-md-6
+          .col-border
+            h3.text-center
+              | A few words 
+              strong about us
+            .divider-sm
+            p 
+              = @few_word.content
+        .col-md-6
+          .col-border
+            h3.text-center
+              | Why 
+              strong choose us
+            .divider-sm
+            p
+              = @why.content
+    .divider-tittle
+      h1.text-center
+        | Get In 
+        strong Touch
+    .row
+      = form_for @get_in_touch, :remote => true do |f|
+        section.wrap-getintouch
+          .col-md-6
+            #errors
+            .form-group
+              p Your name
+              = f.text_field :name, :class => 'form-control input-get-intouch'
+            .form-group
+              p Email
+              = f.email_field :email, :class => 'form-control input-get-intouch'
+            .form-group
+              p Subject
+              = f.text_field :subject, :class => 'form-control input-get-intouch'
+          .col-md-6
+            .form-group
+              p Message
+              = f.text_area :message, :class => 'form-control input-get-intouch', :rows => '13'
+            = f.submit 'Send', :class => 'btn btn-default btn-send pull-right'
