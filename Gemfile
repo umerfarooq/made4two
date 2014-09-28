@@ -32,7 +32,7 @@ gem 'spring', group: :development
 # gem 'capistrano-rails', group: :development
 gem 'sass-rails', '>= 3.2'
 gem 'bootstrap-sass', '~> 3.1.1'
-gem "rmagick"
+# gem "rmagick"
 gem "carrierwave"
 gem 'kaminari'
 gem 'slim-rails'
