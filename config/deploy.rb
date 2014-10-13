@@ -17,9 +17,9 @@ set :deploy_via, :remote_cache
 set :deploy_to, "/var/rails/apps/made4two" 
 set :rails_env, :production
 
-role :web, "54.69.56.154"                          # Your HTTP server, Apache/etc
-role :app, "54.69.56.154"                          # This may be the same as your `Web` server
-role :db,  "54.69.56.154", :primary => true # This is where Rails migrations will run
+role :web, "54.69.139.255"                          # Your HTTP server, Apache/etc
+role :app, "54.69.139.255"                          # This may be the same as your `Web` server
+role :db,  "54.69.139.255", :primary => true # This is where Rails migrations will run
 
 after "deploy:update_code", "deploy:update_shared_symlinks" 
 # after "deploy:update_shared_symlinks", "deploy:migrate"
